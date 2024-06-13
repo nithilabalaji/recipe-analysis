@@ -15,6 +15,7 @@ The original dataset has 83782 rows and 13 columns. We will go further into the 
 # Data Cleaning and Exploratory Data Analysis
 
 Our dataset is a merge of two dataframes, one containing the original recipes, and another with information on how users interacted with a particular recipe. The interactions gives us information like ratings and reviews.
+
 In order to clean our data the following steps were taken,
 1. Fillng all missing values in the rating column with Nan. Ratings range from 0-5, so filling values with 0 adds bias to our data.
 2. Grouping data based on recipe ID and taking the average of all ratings per recipe.
