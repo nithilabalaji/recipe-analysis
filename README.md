@@ -71,7 +71,13 @@ This table presents a summary of the average ratings for recipes grouped by diff
 - 0-15 Minutes: Recipes in this interval have the highest average rating (mean = 4.67) and the highest median rating (5.0), with a standard deviation of 0.60. This indicates users generally rate these quick recipes more favorably.
 - 120+ Minutes: The longest cooking time interval has the lowest average rating (mean = 4.59) but still a high median rating of 5.0. The standard deviation is 0.68, showing the highest variability among all intervals.
 
-INSERT AGGREGATE TABLE
+| cooking_time_interval   |    mean |   median |   count |      std |
+|:------------------------|--------:|---------:|--------:|---------:|
+| 0-15                    | 4.67088 |        5 |   16303 | 0.595778 |
+| 15-30                   | 4.62338 |        5 |   20115 | 0.632982 |
+| 30-60                   | 4.60655 |        5 |   24570 | 0.655075 |
+| 60-120                  | 4.62744 |        5 |   11840 | 0.65311  |
+| 120+                    | 4.5936  |        5 |    8344 | 0.678229 |
 
 # Assessment of Missingness
 
