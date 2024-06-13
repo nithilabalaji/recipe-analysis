@@ -166,7 +166,12 @@ Test Statistic: The difference in mean average ratings between short and long re
 
 Significance Level: 0.05
 
-INSERT PLOT
+<iframe
+  src="permutation_test_short_long_recipes.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Since the p-value is less than the significance level of 0.05, we reject the null hypothesis. This indicates that there is a significant difference in average ratings between recipes with short cooking times (0-30 minutes) and those with long cooking times (> 30 minutes).
 
