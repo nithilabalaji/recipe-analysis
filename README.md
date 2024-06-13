@@ -12,8 +12,27 @@ Understanding the relationship between cooking time and user ratings is valuable
 
 The original dataset has 83782 rows and 13 columns. We will go further into the relevant columns in the next section.
 
-
 # Data Cleaning and Exploratory Data Analysis
+
+Our dataset is a merge of two dataframes, one containing the original recipes, and another with information on how users interacted with a particular recipe. The interactions gives us information like ratings and reviews.
+In order to clean our data the following steps were taken,
+1. Fillng all missing values in the rating column with Nan. Ratings range from 0-5, so filling values with 0 adds bias to our data.
+2. Grouping data based on recipe ID and taking the average of all ratings per recipe.
+
+We know how a dataframe with a unique row for each recipe. We then add two columns, 'year' and 'calories' using information already in the data to help us later on in the project. 
+
+Here are the relevant columns,
+- name: The title of the recipe
+- id: Unique number assigned to each recipe
+- minutes: Minutes to complete recipe
+- year: The year recipe was uploaded to the site
+- tags: A list of tags associated with the recipe
+- n_steps: Number of steps in recipe
+- n_ingredients: Number of ingredients required
+- average_rating: Average of all ratings on recipe (0-5)
+- calories: Reported calories the recipe contains
+
+
 
 # Assessment of Missingness
 
