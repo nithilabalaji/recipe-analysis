@@ -48,8 +48,12 @@ This histogram shows the distribution of cooking times for recipes, using a loga
 
 This histogram displays the distribution of average ratings for the recipes. The ratings are concentrated towards the higher end of the scale, suggesting that users generally rate recipes favorably.
 
-INSERT UNIV 2
-
+<iframe
+  src="uni_2_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 The scatter plot illustrates the relationship between cooking time and average rating. The plot shows no clear correlation between cooking time and average rating. The ratings for short recipes vary widely, indicating that factors other than cooking time might play a significant role in how recipes are rated.
 
 INSERT BIVAR 1
