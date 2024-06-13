@@ -39,7 +39,12 @@ We know analyze some of the trends in our data.
 
 This histogram shows the distribution of cooking times for recipes, using a logarithmic scale on the x-axis to accommodate the wide range of values. We can see that the values are quite varied with many around 1000 minutes, or 16 hours.
 
-INSERT UNIV 1
+<iframe
+  src="uni_1_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 This histogram displays the distribution of average ratings for the recipes. The ratings are concentrated towards the higher end of the scale, suggesting that users generally rate recipes favorably.
 
