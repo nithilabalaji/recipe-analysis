@@ -131,6 +131,71 @@ In the previous section, we saw evidence of a relation between cooking time and 
 
 # Baseline Model
 
+### Understanding the Model
+
+Here is how the model works to forecast the cooking time (minutes) based on the average rating and tags of recipes.
+
+1. The MultiLabelBinarizerWrapper class is a custom transformer designed to handle the tags column, which contains lists of tags for each recipe. The MultiLabelBinarizer from sklearn is used to convert these lists into a binary matrix, where each tag is represented as a separate feature.
+2. The data is split into training and testing sets. The features (X) include average_rating and tags, while the target variable (y) is the cooking time in minutes. The train_test_split function allocates 80% of the data for training and 20% for testing, with a random state set for reproducibility.
+3. A ColumnTransformer is created to preprocess the data. The average_rating column is passed through as-is, while the tags column is processed using the MultiLabelBinarizerWrapper. The Pipeline integrates this preprocessing step with a LinearRegression model for training.
+4. The pipeline is fitted to the training data, which involves preprocessing the features and training the linear regression model on the preprocessed data. Predictions are made on both the training and testing sets to evaluate the model's performance.
+5. We finally evaluate the model with mean squared error.
+
+### Analyzing the Model
+
+Here is our result,
+Mean Absolute Error on Training Data: 168.75853787827248
+Mean Absolute Error on Test Data: 148.85871949708385
+
+The MAE values indicate the average prediction error in minutes. Given that cooking times can vary widely, the MAE values suggest a moderate level of prediction accuracy. The model performs slightly better on the test data than on the training data, which is a positive sign as it suggests that the model is not overfitting.
+
+While the model provides a basic level of predictive capability, the relatively high MAE values suggest that there is room for improvement. Factors such as additional features and more sophisticated modeling techniques (e.g., regularization, ensemble methods) could enhance the model's performance.
+
 # Final Model
 
+We now are able to move onto the final model.
+
+### Improving the Baseline Model
+
+1. The selected features for the model are increased to n_steps (number of steps in the recipe), tags (list of tags associated with the recipe), n_ingredients (number of ingredients), and average_rating. These features are chosen because they provide a comprehensive overview of the recipe's complexity, content, and user feedback, which are likely to influence the cooking time.
+2. The data is split, and tags analyzed as before.
+3. A RandomForestRegressor is chosen for its ability to handle complex interactions and non-linear relationships. Grid search with cross-validation (GridSearchCV) is used to find the best combination of hyperparameters (n_estimators and max_depth). This method systematically tests different hyperparameter values to optimize model performance.
+4. The model is trained using the training data and the best hyperparameters are identified through grid search.
+5. We calculate the MAE again to evaluate performance.
+
+Features Added and Their Importance:
+- n_steps: Indicates the complexity of the recipe. More steps generally suggest a longer cooking time.
+- tags: Provide additional context about the recipe, such as cuisine type or dietary restrictions, which can influence cooking time.
+- n_ingredients: Another indicator of complexity. More ingredients can lead to longer preparation and cooking times.
+- average_rating: Reflects user satisfaction and potential recipe popularity, which might correlate with cooking time efficiency.
+
+### Evaluating the Model
+Here are our findings,
+Best Parameters: {'regressor__max_depth': 10, 'regressor__n_estimators': 50}
+Mean Absolute Error on Training Data: 71.19
+Mean Absolute Error on Test Data: 128.93
+The final model shows significant improvement over the baseline model!
+
 # Fairness Analysis
+
+We will now evaluate fairness by comparing its performance on two different groups. 
+
+Group X: Recipes submitted between 2008-2013
+Group Y: Recipes submitted between 2014-2018
+
+Null Hypothesis: The model's performance (MAE) for recipes submitted between 2008-2013 is the same as for those submitted between 2014-2018. Any observed difference is due to random chance.
+Alternative Hypothesis: The model's performance (MAE) for recipes submitted between 2008-2013 is different from that for those submitted between 2014-2018.
+
+Test Statistic: The difference in MAE between the two groups.
+Significance Level: 0.05
+
+We then split the data into the two groups and used our above model on each group. Finally we perform a hypothesis test using the above specifics to compare its results. Here is our output,
+MAE for group 1 (2008-2013): 84.48981653540908
+MAE for group 2 (2014-2018): 1249.27327608401
+Observed difference in MAE: 1164.7834595486008
+P-value: 0.4336
+
+Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis. This indicates that the observed difference in MAE between the two groups is not statistically significant and could be due to random chance.
+
+Therefore, based on this analysis, we cannot conclude that the model is unfairly biased against recipes submitted in the more recent time period (2014-2018). However, the large difference in MAE does suggest that there may be underlying issues that are worth further investigation, such as changes in recipe characteristics over time that the model does not account for. After some analysis it was found that the subset of data before 2014 was much larger than the newer recipes. This difference in data size can be one of the many reasons.
+
