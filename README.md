@@ -207,7 +207,7 @@ Mean Absolute Error on Training Data: 168.75853787827248
 
 Mean Absolute Error on Test Data: 148.85871949708385
 
-The MAE values indicate the average prediction error in minutes. Given that cooking times can vary widely, the MAE values suggest a moderate level of prediction accuracy. The model performs slightly better on the test data than on the training data, which is a positive sign as it suggests that the model is not overfitting.
+The MAE values indicate the average prediction error in minutes. Given that cooking times can vary widely (the highest time we have is 1,051,200 minutes), the MAE values suggest a moderate level of prediction accuracy. The model performs slightly better on the test data than on the training data, which is a positive sign as it suggests that the model is not overfitting.
 
 While the model provides a basic level of predictive capability, the relatively high MAE values suggest that there is room for improvement. Factors such as additional features and more sophisticated modeling techniques (e.g., regularization, ensemble methods) could enhance the model's performance.
 
