@@ -1,5 +1,6 @@
 # Predicting how long a recipe takes to complete
-by Nithila Balaji
+
+A project for DSC80 at UC San Diego by Nithila Balaji
 
 # Introduction
 
@@ -16,13 +17,13 @@ The original dataset has 83782 rows and 13 columns. We will go further into the 
 
 Our dataset is a merge of two dataframes, one containing the original recipes, and another with information on how users interacted with a particular recipe. The interactions gives us information like ratings and reviews.
 
-In order to clean our data the following steps were taken,
+In order to clean our data the following steps were taken before merging,
 1. Fillng all missing values in the rating column with Nan. Ratings range from 0-5, so filling values with 0 adds bias to our data.
 2. Grouping data based on recipe ID and taking the average of all ratings per recipe.
 
-We know how a dataframe with a unique row for each recipe. We then add two columns, 'year' and 'calories' using information already in the data to help us later on in the project. 
+We now have a dataframe with a unique row for each recipe. We then add two columns, 'year' and 'calories' using information already in the data to help us later on in the project. 
 
-Here are the relevant columns,
+Here are the relevant columns and a look at the datafreame,
 - name: The title of the recipe
 - minutes: Minutes to complete recipe
 - year: The year recipe was uploaded to the site
@@ -40,7 +41,7 @@ Here are the relevant columns,
 | millionaire pound cake               |       120 |   2008 | ['time-to-make', 'course', 'cuisine', 'preparation', 'occasion', 'north-american', 'desserts', 'american', 'southern-united-states', 'dinner-party', 'holiday-event', 'cakes', 'dietary', 'christmas', 'thanksgiving', 'low-sodium', 'low-in-something', 'taste-mood', 'sweet', '4-hours-or-less'] |         7 |               7 |                5 |      878.3 |
 | 2000 meatloaf                        |        90 |   2012 | ['time-to-make', 'course', 'main-ingredient', 'preparation', 'main-dish', 'potatoes', 'vegetables', '4-hours-or-less', 'meatloaf', 'simply-potatoes2']                                                                                                                                             |        17 |              13 |                5 |      267   |
 
-We know analyze some of the trends in our data.
+We now analyze some of the trends in our data.
 
 This histogram shows the distribution of cooking times for recipes, using a logarithmic scale on the x-axis to accommodate the wide range of values. We can see that the values are quite varied with many around 1000 minutes, or 16 hours.
 
@@ -67,7 +68,7 @@ The scatter plot illustrates the relationship between cooking time and average r
   height="600"
   frameborder="0"
 ></iframe>
-The box plot reveals that recipes with shorter cooking times generally receive higher ratings. This trend implies that users might prefer recipes that are quick to prepare, associating shorter cooking times with better overall experiences.
+We made a box plot after grouping our data into different time intervals as seen on the x-axis. The box plot reveals that recipes with shorter cooking times generally receive higher ratings. This trend implies that users might prefer recipes that are quick to prepare, associating shorter cooking times with better overall experiences.
 
 <iframe
   src="biv_2_fig.html"
@@ -75,7 +76,7 @@ The box plot reveals that recipes with shorter cooking times generally receive h
   height="600"
   frameborder="0"
 ></iframe>
-This table presents a summary of the average ratings for recipes grouped by different cooking time intervals. The summary statistics include the mean, median, count, and standard deviation of the ratings within each interval. We can draw some information,
+This table presents a summary of the average ratings for recipes grouped by different cooking time intervals. The summary statistics include the mean, median, count, and standard deviation of the ratings within each interval. We can draw some insights,
 - 0-15 Minutes: Recipes in this interval have the highest average rating (mean = 4.67) and the highest median rating (5.0), with a standard deviation of 0.60. This indicates users generally rate these quick recipes more favorably.
 - 120+ Minutes: The longest cooking time interval has the lowest average rating (mean = 4.59) but still a high median rating of 5.0. The standard deviation is 0.68, showing the highest variability among all intervals.
 
@@ -90,16 +91,17 @@ This table presents a summary of the average ratings for recipes grouped by diff
 # Assessment of Missingness
 
 The only missing/null values are found in these columns,
-1. name
-2. description
-3. average_rating
-4. cooking_time_interval
+1. name: 1
+2. description: 70
+3. average_rating: 2609
 
 ### NMAR analysis
 
-If a recipe lacks a description, it might be because the author intentionally left it blank, possibly due to the recipe being straightforward or not requiring additional context. This missingness is inherently related to the value itself (i.e., the presence or absence of descriptive text), which is a classic example of NMAR.
+The description column has 70 missing values, this is not trivial. If a recipe lacks a description, it might be because the author intentionally left it blank, possibly due to the recipe being straightforward or not requiring additional context. This missingness is inherently related to the value itself (i.e., the presence or absence of descriptive text), which is a classic example of NMAR.
 
 ## Missingness Dependency
+
+The other column with many missing values is the average_rating column. We will try to analyze the missingness to see if it depends on another column in our data.
 
 ### Analyzing dependency of average_rating on calories
 
@@ -124,7 +126,9 @@ Here is a visualization of our permutations and significance level.
   frameborder="0"
 ></iframe>
 
-Since the p-value is less than the significance level of 0.05, we reject the null hypothesis. This indicates that the missingness of average_rating does depend on the calories of the recipe. There is a significant difference in the average calories between recipes with missing ratings and those with complete ratings.
+Since the p-value is less than the significance level of 0.05, we reject the null hypothesis. This indicates that the missingness of average_rating does depend on the calories of the recipe. 
+
+There is a significant difference in the average calories between recipes with missing ratings and those with complete ratings.
 
 ### Analyzing dependency of average_rating on minutes
 
@@ -151,7 +155,7 @@ Since the p-value is less than the significance level of 0.05, we reject the nul
 
 # Hypothesis Testing
 
-We now want to investigate the difference in average Rating Between short and long cooking times
+We want to investigate the difference in average_rating between short and long cooking times
 
 Objective: To determine if there is a significant difference in average ratings between recipes with short cooking times (0-30 minutes) and long cooking times (> 30 minutes).
 
@@ -162,9 +166,11 @@ Null Hypothesis: There is no significant difference in average ratings between r
 Alternative Hypothesis: There is a significant difference in average ratings between recipes with short cooking times (0-30 minutes) and long cooking times (> 30 minutes).
 
 Test Statistic: The difference in mean average ratings between short and long recipes.
-- The difference in mean average ratings is a straightforward measure to compare the central tendency of ratings between two groups, making it an appropriate choice for this analysis.
+- The difference in mean average ratings is a measure to compare the central tendency of ratings between two groups, making it an appropriate choice for this analysis.
 
 Significance Level: 0.05
+
+Below is the visualization of the permutation test and significance level.
 
 <iframe
   src="permutation_test_short_long_recipes.html"
@@ -178,6 +184,8 @@ Since the p-value is less than the significance level of 0.05, we reject the nul
 # Framing a Prediction Problem
 
 In the previous section, we saw evidence of a relation between cooking time and average rating. We will use this as a base step for out prediction problem. We will try to predict how long a recipe takes to complete using the minutes column, as well as the tags columns. Note that the tags column contains a list of strings, each of which is a unique hashtag. There are over 7000 unique tags in our data.
+
+In the next section we discuss how we handle these two columns, and transform them to become meaningfull to our model. 
 
 # Baseline Model
 
@@ -248,7 +256,7 @@ Test Statistic: The difference in MAE between the two groups.
 
 Significance Level: 0.05
 
-We then split the data into the two groups and used our above model on each group. Finally we perform a hypothesis test using the above specifics to compare its results. Here is our output,
+We then split the data into the two groups and used our above model on each group. Finally we perform a hypothesis test using the above specifics to compare its results. Here is our result,
 
 MAE for group 1 (2008-2013): 84.48981653540908
 
