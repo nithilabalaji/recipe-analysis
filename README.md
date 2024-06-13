@@ -61,12 +61,20 @@ This histogram displays the distribution of average ratings for the recipes. The
 ></iframe>
 The scatter plot illustrates the relationship between cooking time and average rating. The plot shows no clear correlation between cooking time and average rating. The ratings for short recipes vary widely, indicating that factors other than cooking time might play a significant role in how recipes are rated.
 
-INSERT BIVAR 1
-
+<iframe
+  src="biv_1_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 The box plot reveals that recipes with shorter cooking times generally receive higher ratings. This trend implies that users might prefer recipes that are quick to prepare, associating shorter cooking times with better overall experiences.
 
-INSERT BIVAR 2
-
+<iframe
+  src="biv_2_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 This table presents a summary of the average ratings for recipes grouped by different cooking time intervals. The summary statistics include the mean, median, count, and standard deviation of the ratings within each interval. We can draw some information,
 - 0-15 Minutes: Recipes in this interval have the highest average rating (mean = 4.67) and the highest median rating (5.0), with a standard deviation of 0.60. This indicates users generally rate these quick recipes more favorably.
 - 120+ Minutes: The longest cooking time interval has the lowest average rating (mean = 4.59) but still a high median rating of 5.0. The standard deviation is 0.68, showing the highest variability among all intervals.
@@ -109,7 +117,12 @@ We found,
 
 Here is a visualization of our permutations and significance level.
 
-INSERT MISSING 1
+<iframe
+  src="permutation_test_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Since the p-value is less than the significance level of 0.05, we reject the null hypothesis. This indicates that the missingness of average_rating does depend on the calories of the recipe. There is a significant difference in the average calories between recipes with missing ratings and those with complete ratings.
 
@@ -127,7 +140,12 @@ We found,
 
 Here is a visualization of our permutations and significance level.
 
-INSERT MISSING 2
+<iframe
+  src="permutation_test_minutes_fig.html"
+  width="800"
+  height="600"
+  frameborder="0"
+></iframe>
 
 Since the p-value is less than the significance level of 0.05, we reject the null hypothesis. This indicates that the missingness of average_rating does depend on the cooking time (minutes) of the recipe. 
 
