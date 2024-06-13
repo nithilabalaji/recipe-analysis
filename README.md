@@ -81,8 +81,11 @@ If a recipe lacks a description, it might be because the author intentionally le
 ### Analyzing dependency of average_rating on calories
 
 The objective is to determine if the missingness of average_rating is dependent on the calories of the recipes with a permutation test.
+
 Null Hypothesis: The missingness of average_rating does not depend on the calories of the recipe.
+
 Alternative Hypothesis: The missingness of average_rating does depend on the calories of the recipe.
+
 Test Statistic: The absolute difference in mean calories between recipes with missing average ratings and those without missing average ratings.
 
 We found, 
@@ -98,7 +101,9 @@ Since the p-value is less than the significance level of 0.05, we reject the nul
 ### Analyzing dependency of average_rating on minutes
 
 The objective is to determine if the missingness of average_rating is dependent on the cooking time (minutes) of the recipes.
+
 Null Hypothesis: The missingness of average_rating does not depend on the cooking time (minutes) of the recipe.
+
 Alternative Hypothesis: The missingness of average_rating does depend on the cooking time (minutes) of the recipe.
 
 We found, 
@@ -120,6 +125,7 @@ Objective: To determine if there is a significant difference in average ratings 
 Permutation Test: This non-parametric method does not assume a specific distribution for the data, making it robust for comparing means in our context.
 
 Null Hypothesis: There is no significant difference in average ratings between recipes with short cooking times (0-30 minutes) and long cooking times (> 30 minutes).
+
 Alternative Hypothesis: There is a significant difference in average ratings between recipes with short cooking times (0-30 minutes) and long cooking times (> 30 minutes).
 
 Test Statistic: The difference in mean average ratings between short and long recipes.
@@ -150,7 +156,9 @@ Here is how the model works to forecast the cooking time (minutes) based on the 
 ### Analyzing the Model
 
 Here is our result,
+
 Mean Absolute Error on Training Data: 168.75853787827248
+
 Mean Absolute Error on Test Data: 148.85871949708385
 
 The MAE values indicate the average prediction error in minutes. Given that cooking times can vary widely, the MAE values suggest a moderate level of prediction accuracy. The model performs slightly better on the test data than on the training data, which is a positive sign as it suggests that the model is not overfitting.
@@ -177,9 +185,13 @@ Features Added and Their Importance:
 
 ### Evaluating the Model
 Here are our findings,
+
 Best Parameters: {'regressor__max_depth': 10, 'regressor__n_estimators': 50}
+
 Mean Absolute Error on Training Data: 71.19
+
 Mean Absolute Error on Test Data: 128.93
+
 The final model shows significant improvement over the baseline model!
 
 # Fairness Analysis
@@ -187,18 +199,25 @@ The final model shows significant improvement over the baseline model!
 We will now evaluate fairness by comparing its performance on two different groups. 
 
 Group X: Recipes submitted between 2008-2013
+
 Group Y: Recipes submitted between 2014-2018
 
 Null Hypothesis: The model's performance (MAE) for recipes submitted between 2008-2013 is the same as for those submitted between 2014-2018. Any observed difference is due to random chance.
+
 Alternative Hypothesis: The model's performance (MAE) for recipes submitted between 2008-2013 is different from that for those submitted between 2014-2018.
 
 Test Statistic: The difference in MAE between the two groups.
+
 Significance Level: 0.05
 
 We then split the data into the two groups and used our above model on each group. Finally we perform a hypothesis test using the above specifics to compare its results. Here is our output,
+
 MAE for group 1 (2008-2013): 84.48981653540908
+
 MAE for group 2 (2014-2018): 1249.27327608401
+
 Observed difference in MAE: 1164.7834595486008
+
 P-value: 0.4336
 
 Since the p-value is greater than the significance level of 0.05, we fail to reject the null hypothesis. This indicates that the observed difference in MAE between the two groups is not statistically significant and could be due to random chance.
